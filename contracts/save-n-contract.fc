@@ -1,0 +1,22 @@
+;; Storage
+;;
+;; n uint
+
+() recv_internal (slice in_msg_body) {
+
+    int n = in_msg_body~load_uint(32);
+
+    set_data(
+        begin_cell()
+            .store_uint(n)
+        .end_cell()
+    );
+}
+
+int get_n () method_id {
+
+    slice ds = get_data().begin_parse();
+
+    int n = ds~load_uint(32);
+
+}
